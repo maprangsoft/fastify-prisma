@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  blogs     Blog[]
+
+  @@map("user")
+}
+
+model Blog {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?  @db.Text
+  authorId  Int?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User?    @relation(fields: [authorId], references: [id])
+
+  @@index([authorId], map: "blog_authorId_fkey")
+  @@map("blog")
+}
+
+model Product {
+  id        Int      @id @default(autoincrement())
+  name      String
+  price     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  order     order[]
+
+  @@map("product")
+}
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("customer")
+}
+
+model order {
+  id         Int     @id @default(autoincrement())
+  product_id Int
+  amount     Int
+  product    Product @relation(fields: [product_id], references: [id], onDelete: Cascade, map: "FK_order_product")
+
+  @@index([product_id], map: "FK_order_product")
+}

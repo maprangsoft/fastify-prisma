@@ -1,0 +1,26 @@
+node_modules
+dist
+*.log
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Prisma
+/src/generated/prisma
+prisma.config.js
+prisma.config.js.map
+prisma.config.d.ts
+prisma.config.d.ts.map
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
