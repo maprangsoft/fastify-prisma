@@ -6,16 +6,31 @@ import { userRoutes } from "./routes/user.routes";
 import { blogRoutes } from "./routes/blog.routes";
 import { productRoutes } from "./routes/product.routes";
 import { customerRoutes } from "./routes/customer.routes";
+import cors from '@fastify/cors';
+
 const server = fastify({
   logger: {
     level: env.NODE_ENV === "production" ? "info" : "debug",
   },
 });
 
-// Setup error handler
+//* CORS
+await server.register(cors, {
+  origin: ["http://localhost:3000"],
+  // methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  // allowedHeaders: ["Content-Type", "Authorization"],
+  // credentials: true,
+  // maxAge: 600,
+  // preflightContinue: false,
+  // optionsSuccessStatus: 204,
+  // exposeHeaders: ["Content-Length", "X-Get-Header"],
+})
+
+
+//* Setup error handler
 setupErrorHandler(server);
 
-// Register routes
+//* Register routes
 await userRoutes(server, prisma);
 await blogRoutes(server, prisma);
 await productRoutes(server, prisma);

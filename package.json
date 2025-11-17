@@ -21,6 +21,7 @@
     "stop": "pkill -f 'nodemon|tsx src/index.ts|prisma generate --watch' || true"
   },
   "dependencies": {
+    "@fastify/cors": "^11.1.0",
     "@prisma/client": "^6.19.0",
     "fastify": "^5.6.2",
     "mysql2": "^3.15.3",
