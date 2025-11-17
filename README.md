@@ -37,14 +37,17 @@ cp .env.example .env
 
 4. Generate Prisma Client:
 ```bash
-npm run prisma:generate
+npx prisma generate
 ```
 
 5. สร้าง database schema:
 ```bash
-npm run prisma:db-push
+npx prisma db pull
+npx prisma db push
 # หรือ
-npm run prisma:migrate
+npx prisma migrate
+
+npx prisma migrate reset
 ```
 
 ## การใช้งาน
